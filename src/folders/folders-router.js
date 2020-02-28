@@ -22,8 +22,8 @@ foldersRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { id, folder_name } = req.body
-    const newFolder = { id, folder_name }
+    const { folder_name } = req.body
+    const newFolder = { folder_name }
 
     for (const [key, value] of Object.entries(newFolder)) {
       if (value == null) {
@@ -40,7 +40,7 @@ foldersRouter
       .then(folder => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${id}`))
+          .location(path.posix.join(req.originalUrl, `/${folder.id}`))
           .json(serializeFolder(folder))
       })
       .catch(next)

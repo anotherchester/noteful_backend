@@ -8,7 +8,7 @@ const jsonParser = express.json()
 
 const serializeFolder = folder => ({
   id: folder.id,
-  folderName: xss(folder.folderName)
+  folder_name: xss(folder.folder_name)
 })
 
 foldersRouter
@@ -23,7 +23,7 @@ foldersRouter
   })
   .post(jsonParser, (req, res, next) => {
     const { id, folderName } = req.body
-    const newFolder = { id, folderName }
+    const newFolder = { id, folder_name }
 
     for (const [key, value] of Object.entries(newFolder)) {
       if (value == null) {

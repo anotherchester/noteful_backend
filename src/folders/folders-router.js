@@ -6,9 +6,9 @@ const foldersService = require('./folders-service')
 const foldersRouter = express.Router()
 const jsonParser = express.json()
 
-const serializeFolder = folders => ({
-  id: folders.id,
-  folderName: xss(folders.folderName)
+const serializeFolder = folder => ({
+  id: folder.id,
+  folderName: xss(folder.folderName)
 })
 
 foldersRouter
@@ -16,8 +16,8 @@ foldersRouter
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     foldersService.getAllFolders(knexInstance)
-      .then(folders => {
-        res.json(folders.map(serializeFolder))
+      .then(folder => {
+        res.json(folder.map(serializeFolder))
       })
       .catch(next)
   })
@@ -37,11 +37,11 @@ foldersRouter
       req.app.get('db'),
       newFolder
     )
-      .then(folders => {
+      .then(folder => {
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${id}`))
-          .json(serializeFolder(folders))
+          .json(serializeFolder(folder))
       })
       .catch(next)
   })
@@ -51,10 +51,10 @@ foldersRouter
   .all((req, res, next) => {
     foldersService.getById(
       req.app.get('db'),
-      req.params.foldersId
+      req.params.folderId
     )
-      .then(folders => {
-        if (!folders) {
+      .then(folder => {
+        if (!folder) {
           return res.status(404).json({
             error: { message: `Folder doesn't exist` }
           })
@@ -70,7 +70,7 @@ foldersRouter
   .delete((req, res, next) => {
     foldersService.deleteFolder(
       req.app.get('db'),
-      req.params.foldersID
+      req.params.folderID
     )
       .then(numRowsAffected => {
         res.status(204).end()

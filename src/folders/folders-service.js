@@ -26,7 +26,6 @@ deleteFolder(knex, id) {
     .where({id})
     .delete
 }
-
 }
 
 module.exports = foldersService

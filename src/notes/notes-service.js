@@ -1,6 +1,6 @@
 const notesService = {
   getAllNotes(knex) {
-     return knex.select('*').from('notes').catch(err => console.log(err))
+    return knex.select('*').from('notes').catch(err => console.log(err))
   },
   getNotesById(knex, id) {
     return knex.select('*')
@@ -31,3 +31,5 @@ const notesService = {
       .catch(err => console.log(err))
   }
 }
+
+module.exports = notesService;

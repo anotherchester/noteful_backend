@@ -3,7 +3,7 @@ INSERT INTO folders (folder_name) VALUES
 ('Super'),
 ('Spangley');
 
-INSERT INTO notes (note_name, folderId, content) VALUES
+INSERT INTO notes (note_name, folder_id, content) VALUES
 ('Dogs', 1, 'Dogs content'),
 ('Cats', 2, 'Cats content'),
 ('Pigs', 3, 'Pigs content'),

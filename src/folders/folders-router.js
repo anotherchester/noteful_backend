@@ -22,7 +22,7 @@ foldersRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { id, folderName } = req.body
+    const { id, folder_name } = req.body
     const newFolder = { id, folder_name }
 
     for (const [key, value] of Object.entries(newFolder)) {
@@ -49,7 +49,7 @@ foldersRouter
 foldersRouter
   .route('/:folderId')
   .all((req, res, next) => {
-    foldersService.getById(
+    foldersService.getByID(
       req.app.get('db'),
       req.params.folderId
     )
@@ -68,17 +68,13 @@ foldersRouter
     res.json(serializeFolder(res.folder))
   })
   .delete((req, res, next) => {
+    const { folderId } = req.params
     foldersService.deleteFolder(
       req.app.get('db'),
-      req.params.folderID
+      folderId
     )
-      .then(numRowsAffected => {
-        res.status(204).end()
-      })
-      .catch(next)
+    .then(res.status(204).end())
+    .catch(next)
   })
 
 module.exports = foldersRouter
-
-
-

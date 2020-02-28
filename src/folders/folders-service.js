@@ -1,3 +1,4 @@
+
 const foldersService = {
   getAllFolders(knex) {
     return knex.select('*').from('folders')

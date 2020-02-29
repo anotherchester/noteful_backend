@@ -1,3 +1,10 @@
+BEGIN;
+
+TRUNCATE 
+  folders,
+  notes
+  RESTART IDENTITY CASCADE;
+
 INSERT INTO folders (folder_name) VALUES 
 ('Important'),
 ('Super'),
@@ -18,3 +25,5 @@ INSERT INTO notes (note_name, folder_id, content) VALUES
 ('Bats', 1, 'Bats content'),
 ('Turtles', 3, 'Turtles content'),
 ('Zebras', 1, 'Zebras content');
+
+COMMIT;
